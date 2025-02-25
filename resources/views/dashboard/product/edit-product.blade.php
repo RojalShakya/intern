@@ -13,7 +13,6 @@
               <label for="name">Title</label>
               <input type="text" class="form-control" name="title" value="{{ old('title', $product->title?? '') }}">
             </div>
-            <input type="text" class="form-control" name="slug" value="{{ old('slug', $product->slug ?? '') }}" readonly hidden>
             <div class="form-group">
                 <label>Category</label>
                 <select class="js-example-basic-single w-100" name="category_id" >
