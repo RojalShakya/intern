@@ -14,6 +14,11 @@ class Product extends Model
         static::creating(function($product){
             $product->slug=Str::slug($product->title);
         });
+        static::updating(function ($product) {
+            if ($product->isDirty('title')) { // Check if the title is changed
+                $product->slug = Str::slug($product->title);
+            }
+        });
     }
     public function category(){
         return $this->belongsTo(Category::class);

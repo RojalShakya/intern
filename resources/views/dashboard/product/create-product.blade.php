@@ -17,7 +17,6 @@
                   <span class="text-danger">{{$message}} </span>
               @enderror
             </div>
-            <input type="text" class="form-control" name="slug" readonly hidden>
             <div class="form-group">
                 <label>Category</label>
                 <select class="js-example-basic-single w-100" name="category_id" >
@@ -38,11 +37,10 @@
           @enderror
             </div>
             <div class="form-group">
-              <label for="status">Available</label>
-              <input type="hidden" value="0" name="status">
-              <input type="checkbox" class="form-control" name="status" value="1">
-
+                <label for="status">Available</label>
+                <input type="checkbox" class="form-control" name="status" value="1" {{ old('status', $product->status ?? false) ? 'checked' : '' }}>
             </div>
+*
             <div class="form-group">
                 <label for="qunatity">Quantity</label>
                 <input type="number" class="form-control" name="quantity" placeholder="Enter quantity" min="1">
@@ -52,7 +50,6 @@
               </div>
             <div class="form-group">
                 <label for="order">Order</label>
-              <input type="hidden" value="0" name="status">
               <input type="integer" class="form-control" name="order">
               @error('order')
               <span class="text-danger">{{$message}} </span>

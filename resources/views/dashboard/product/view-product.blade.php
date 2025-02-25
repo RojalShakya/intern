@@ -34,7 +34,7 @@
                   <td>{{$product->order}}</td>
                   <td>
                       <a href="{{route('edit-product',['ids'=>$product->id])}}"><button class="btn btn-primary">Edit</button></a>
-                      {{-- <a href="{{route('destroy-product',['ids'=>$product->id])}}"><button class="btn btn-danger">Delete</button></a> --}}
+                      <a href="{{route('destroy-product',['ids'=>$product->id])}}"><button class="btn btn-danger">Delete</button></a>
                 </td>
 
                 </tr>

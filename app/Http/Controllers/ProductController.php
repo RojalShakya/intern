@@ -24,7 +24,19 @@ class ProductController extends Controller
     }
     public function edit($id){
         $product=Product::findOrFail($id);
-        return view('dashboard.product.edit-product',compact('product'));
+        $categories=Category::all();
+        return view('dashboard.product.edit-product',compact('product','categories'));
+    }
+    public function update(Request $request,$id){
+
+        $product=Product::findOrFail($id);
+        $product->update($request->all());
+        return redirect()->route('view-product');
+    }
+    public function destroy($id){
+        $product=Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('view-product');
     }
 
 

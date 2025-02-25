@@ -7,50 +7,54 @@
         <div class="card-body">
           <h4 class="card-title">Create Blogs</h4>
 
-          <form class="forms-sample" action="" method="POST">
+          <form class="forms-sample" action="{{route('update-product',['ids'=>$product->id])}}" method="POST">
             @csrf
             <div class="form-group">
               <label for="name">Title</label>
-              <input type="text" class="form-control" name="title" value="{{($product->title)}}">
+              <input type="text" class="form-control" name="title" value="{{ old('title', $product->title?? '') }}">
             </div>
+            <input type="text" class="form-control" name="slug" value="{{ old('slug', $product->slug ?? '') }}" readonly hidden>
             <div class="form-group">
                 <label>Category</label>
-                <select class="js-example-basic-multiple w-100" name="category[]" multiple >
-                    {{-- @php
-                    $categoryId=$product->categories->pluck(['id'])->toArray();
-                    $categoryList=$product->categories;
-
-                    @endphp
+                <select class="js-example-basic-single w-100" name="category_id" >
+                    <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Select Option</option>
                     @foreach ($categories as $category)
-                    <option value={{$category->id}} @if (in_array($category->id,$categoryId))
-                        selected
-
-                    @endif>{{$category->category_name}}</option>
-                    @endforeach --}}
+                        <option value="{{ $category->id }}" @if ($product->category_id==$category->id) selected @endif>
+                            {{ $category->title }}
+                        </option>
+                    @endforeach
 
                 </select>
+                @error('category_id')
+                <span class="text-danger">{{$message}} </span>
+            @enderror
               </div>
-
-
             <div class="form-group">
-                <label for="image">File upload</label>
-                <input type="file" name="image_upload" class="file-upload-default">
-                <div class="input-group col-xs-12">
-                  <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                  <span class="input-group-append">
-                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                  </span>
-                </div>
-                @if (isset($product->image))
-                <img src="{{asset($product->image)}}" height="50px" width="auto">
-
-                @endif
-              </div>
-
-            <div class="form-group">
-              <label for="desc">Description</label>
-              <textarea class="form-control" id="myeditorinstance" name="desc" rows="4">{{$product->desc}}</textarea>
+              <label for="price">Price</label>
+              <input type="number" class="form-control" name="price" placeholder="Enter Price" value="{{$product->price}}">
+              @error('price')
+              <span class="text-danger">{{$message}} </span>
+          @enderror
             </div>
+            <div class="form-group">
+              <label for="status">Available</label>
+              <input type="checkbox" class="form-control" name="status" value="1"@if ($product->status=1) checked @endif>
+
+            </div>
+            <div class="form-group">
+                <label for="qunatity">Quantity</label>
+                <input type="number" class="form-control" name="quantity" placeholder="Enter quantity" min="1" value="{{old('quantity',$product->quantity)}}">
+                @error('quantity')
+                <span class="text-danger">{{$message}} </span>
+            @enderror
+              </div>
+            <div class="form-group">
+                <label for="order">Order</label>
+              <input type="integer" class="form-control" name="order"n value="{{old('order',$product->order)}}">
+              @error('order')
+              <span class="text-danger">{{$message}} </span>
+          @enderror
+             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button class="btn btn-light">Cancel</button>
           </form>
